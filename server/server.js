@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const User = require('./mongo_models/User');
+const User = require('./models/User');
 
 const app = express();
 const PORT = 5000;
@@ -15,7 +15,7 @@ mongoose.connect(MONGO_URI)
    .catch(err => console.error(err));
 
 // Sample API endpoint
-app.get('/api/data', async (req, res) => {
+app.get('/api/users', async (req, res) => {
     const newUser = new User({
         "name": "John Doe",
         "email": "john.doe@example.com",
@@ -30,6 +30,10 @@ app.get('/api/data', async (req, res) => {
     }
     res.json({message: 'Hello from the server !'});
 });
+
+const usersRouter = express.Router();
+
+app.use('api/v1/users', usersRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
