@@ -16,7 +16,7 @@ services:
         - GID=${GID}
     depends_on:
       - server
-    command: npm start
+#    command: npm start
 
   server:
     build:
@@ -34,7 +34,7 @@ services:
       - MONGO_URI=mongodb://mongo:27017/mydatabase
       - UID=${UID}
       - GID=${GID}
-    command: node server.js
+#    command: npx nodemon server.js
 
   mongo:
     image: mongo:latest
