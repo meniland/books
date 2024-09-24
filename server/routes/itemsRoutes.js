@@ -10,11 +10,9 @@ const getItems = async (req, res) => {
     }
 }
 
-
-
 router
     .route('/')
-    .get(getItems)
+    .post(getItems)
 
 
 module.exports = router;

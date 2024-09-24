@@ -19,5 +19,4 @@ router
     .route('/')
     .post(saveUser)
 
-
 module.exports = router;

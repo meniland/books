@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
+    _id: {},
     name: { type: String, required: true },
-    category_id: { type: String, required: true},
-    description: { type: String }
+    category: {type: String}
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const Item = mongoose.model('items', itemSchema);
 
 module.exports = Item;

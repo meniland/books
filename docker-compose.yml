@@ -31,17 +31,17 @@ services:
     depends_on:
       - mongo
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydatabase
+      - MONGO_URI=mongodb+srv://mlandman:meni8633@cluster0.ws6nf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - UID=${UID}
       - GID=${GID}
 #    command: npx nodemon server.js
 
   mongo:
     image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - mongo-data:/data/db
 
 volumes:
   mongo-data:
