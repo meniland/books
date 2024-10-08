@@ -1,18 +1,10 @@
 const express = require('express');
-const Item = require("../models/Items");
+const itemController = require('../controllers/itemsController');
 const router = express.Router();
-const getItems = async (req, res) => {
-    try {
-        const items = await Item.find();
-        res.status(200).json(items);
-    } catch (err) {
-        res.status(500).json({ message: err.message});
-    }
-}
 
 router
     .route('/')
-    .post(getItems)
-
+    .get(itemController.getItems)
+    .post(itemController.saveItem)
 
 module.exports = router;
