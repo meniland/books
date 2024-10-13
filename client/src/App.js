@@ -1,26 +1,30 @@
-import './App.css';
-import axios from "axios";
-
-
-const fetchData = async () => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/v1/items');
-    console.log(response.data);
-  } catch (err) {
-  } finally {
-  }
-};
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import MainPage from './components/MainPage';
+import UploadPage from './components/UploadPage';
+import MyAddsPage from './components/MyAddsPage';
+import LoginPage from './components/LoginPage';
+import Header from './components/Header';
+import GlobalStyles from './GlobalStyles';
 
 function App() {
-  return (
-      <div>
-        <header>
-            <div className='header'></div>
-        </header>
+    const getToken = () => {
+        const cookie = document.cookie.split('; ').find(row => row.startsWith('token='));
+        return cookie ? cookie.split('=')[1] : null;
+    };
 
-      </div>
-  );
+    return (
+        <Router>
+            <GlobalStyles />
+            <Header />
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/upload" element={getToken() ? <UploadPage /> : <Navigate to="/login" />} />
+                <Route path="/myadds" element={getToken() ? <MyAddsPage /> : <Navigate to="/login" />} />
+                <Route path="/login" element={<LoginPage />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
-
