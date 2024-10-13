@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Input, Button } from '../styles/LoginPageStyles';
 
@@ -7,8 +8,7 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch('/api/login', {
-            method: 'POST',
+        const response = await axios.post('http://localhost:5000/api/v1/users', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         });

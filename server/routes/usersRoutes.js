@@ -1,22 +1,9 @@
 const express = require('express');
-const User = require("../models/User");
+const usersController = require("../controllers/usersController");
 const router = express.Router();
-const saveUser = async (req, res) => {
-    const newUser = new User({
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "age": 30
-    });
-
-    try {
-        await newUser.save();
-    } catch (e) {
-        console.log(e)
-    }
-}
 
 router
     .route('/')
-    .post(saveUser)
+    .post(usersController.saveUser)
 
 module.exports = router;

@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Filter } from '../styles/MainPageStyles';
 import BookCard from './BookCard';
+import axios from 'axios';
 
 const MainPage = () => {
     const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
     const [category, setCategory] = useState('');
 
-    // useEffect(() => {
-    //     // Fetch books from the server
-    //     // Assume fetchBooks() fetches the book data from an API
-    //     fetchBooks().then(data => {
-    //         setBooks(data);
-    //         setFilteredBooks(data);
-    //     });
-    // }, []);
+    useEffect(() => {
+        fetchBooks().then(response => {
+            setBooks(response);
+            setFilteredBooks(response);
+        });
+    }, []);
+
+    const fetchBooks = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/v1/items');
+            return response.data;
+        } catch (err) {
+        }
+    };
+
 
     const handleFilterChange = (event) => {
         setCategory(event.target.value);
