@@ -10,7 +10,7 @@ const LoginPage = () => {
         e.preventDefault();
         const response = await axios.post('http://localhost:5000/api/v1/users', {
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ 'username': username, 'password': password })
         });
         const data = await response.json();
         if (data.token) {

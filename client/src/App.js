@@ -5,6 +5,7 @@ import UploadPage from './components/UploadPage';
 import MyAddsPage from './components/MyAddsPage';
 import LoginPage from './components/LoginPage';
 import Header from './components/Header';
+import RegistrationPage from "./components/RegistrationPage";
 import GlobalStyles from './GlobalStyles';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/upload" element={getToken() ? <UploadPage /> : <Navigate to="/login" />} />
                 <Route path="/myadds" element={getToken() ? <MyAddsPage /> : <Navigate to="/login" />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegistrationPage />} />
             </Routes>
         </Router>
     );

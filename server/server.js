@@ -8,6 +8,7 @@ const MONGO_URI = 'mongodb+srv://mlandman:meni8633@cluster0.ws6nf.mongodb.net/bo
 // const MONGO_URI = process.env.MONGO_URL;
 const usersRouter = require('./routes/usersRoutes');
 const itemsRouter = require('./routes/itemsRoutes');
+const authRouter = require('./routes/authRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -19,6 +20,7 @@ mongoose.connect(MONGO_URI)
 
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/items', itemsRouter);
+app.use('/api/v1/register', authRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
