@@ -39,11 +39,10 @@ const MainPage = () => {
                 <option value="">All Categories</option>
                 <option value="Fiction">Fiction</option>
                 <option value="Non-Fiction">Non-Fiction</option>
-                {/* Add more categories as needed */}
             </Filter>
             <div>
                 {filteredBooks.map(book => (
-                    <BookCard key={book.id} book={book} />
+                    <BookCard key={book._id} book={book} />
                 ))}
             </div>
         </Container>

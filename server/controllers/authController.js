@@ -1,10 +1,17 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 exports.registerUser = async (req, res) => {
+    const existingUser = await User.findOne({ name: req.body.username });
+    if (existingUser) {
+        return res.status(400).json({ error: 'Username already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = new User({
         name: req.body.username,
-        password: req.body.password
+        password: hashedPassword
     });
 
     try {
@@ -18,5 +25,14 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-
+    const user = await User.findOne({ name: req.body.username });
+    if (!user) {
+        return res.status(400).json({ error: 'User name is not found' });
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+        return res.status(400).json({ error: 'Wrong password' });
+    }
+    const token = jwt.sign({ id: user._id }, 'your_jwt_secret_key', { expiresIn: '1h' });
+    res.status(201).json({ token });
 };

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const Form = styled.form`
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
   background-color: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 5px;
   box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  padding: 6rem 1rem 1rem; /* padding to account for the fixed header */
 `;
 
 export const Input = styled.input`

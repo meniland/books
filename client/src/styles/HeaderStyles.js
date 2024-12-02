@@ -5,6 +5,10 @@ export const HeaderContainer = styled.header`
   justify-content: flex-end;
   padding: 1rem;
   background-color: #343a40;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 `;
 
 export const Button = styled.button`

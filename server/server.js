@@ -20,7 +20,7 @@ mongoose.connect(MONGO_URI)
 
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/items', itemsRouter);
-app.use('/api/v1/register', authRouter);
+app.use('/api/v1', authRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

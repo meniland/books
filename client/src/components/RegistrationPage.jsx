@@ -11,7 +11,7 @@ const RegistrationPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/users/register', { username, password });
+            const response = await axios.post('http://localhost:5000/api/v1/register', { username, password });
             document.cookie = `token=${response.data.token}`;
             navigate('/');
         } catch (err) {
@@ -23,7 +23,7 @@ const RegistrationPage = () => {
         <Form onSubmit={handleRegister}>
             <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
             <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <Button type="submit">Register</Button>
+            <Button type="submit">Send</Button>
         </Form>
     );
 };

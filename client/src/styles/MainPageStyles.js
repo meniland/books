@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 6rem 1rem 1rem; /* padding to account for the fixed header */
 `;
 
 export const Filter = styled.select`
