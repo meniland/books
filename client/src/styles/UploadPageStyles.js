@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Form = styled.form`
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 6rem 1rem 1rem; /* padding to account for the fixed header */
   background-color: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 5px;

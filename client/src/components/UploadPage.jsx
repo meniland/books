@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, Textarea, Button } from '../styles/UploadPageStyles';
 
@@ -6,41 +7,67 @@ const UploadPage = () => {
         name: '',
         category: '',
         description: '',
-        photo: null
+        photos: [] // Store multiple photos
     });
 
     useEffect(() => {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+        const token = getToken();
         if (!token) {
             window.location.href = '/login';
         }
     }, []);
 
+    const getToken = () => {
+        const tokenCookie = document.cookie.split('; ').find(row => row.startsWith('token='));
+        return tokenCookie ? tokenCookie.split('=')[1] : null;
+    };
+
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        setBookData(prev => ({
-            ...prev,
-            [name]: files ? files[0] : value
-        }));
+
+        if (name === 'photos') {
+            setBookData(prev => ({
+                ...prev,
+                [name]: files ? Array.from(files) : [] // Convert FileList to Array
+            }));
+        } else {
+            setBookData(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
-        const response = await fetch('/api/upload', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(bookData)
+        const token = getToken();
+
+        // Use FormData for multipart/form-data requests
+        const formData = new FormData();
+        formData.append('name', bookData.name);
+        formData.append('category', bookData.category);
+        formData.append('description', bookData.description);
+        bookData.photos.forEach((photo, index) => {
+            formData.append(`photos`, photo); // Append each photo
         });
 
-        if (response.ok) {
-            alert('Book uploaded successfully');
-        } else {
-            alert('Session expired, please log in again');
-            window.location.href = '/login';
+        try {
+            const response = await axios.post('http://localhost:5000/api/v1/items', formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            if (response.status === 201) {
+                alert('Book uploaded successfully');
+            } else {
+                alert('Session expired, please log in again');
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Error uploading book:', error);
+            alert('An error occurred while uploading the book');
         }
     };
 
@@ -51,10 +78,9 @@ const UploadPage = () => {
                 <option value="">Select Category</option>
                 <option value="Fiction">Fiction</option>
                 <option value="Non-Fiction">Non-Fiction</option>
-                {/* Add more categories as needed */}
             </Select>
             <Textarea name="description" placeholder="Description" onChange={handleChange} required />
-            <Input type="file" name="photo" onChange={handleChange} required />
+            <Input type="file" name="photos" onChange={handleChange} multiple required />
             <Button type="submit">Upload Book</Button>
         </Form>
     );

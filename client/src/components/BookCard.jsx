@@ -6,7 +6,7 @@ const BookCard = ({ book }) => (
         <h3>{book.name}</h3>
         <p><strong>Category:</strong> {book.category}</p>
         <p>{book.description}</p>
-        <img src={book.photo} alt={book.name} />
+        <img src={`http://localhost::5000${book.photoPath}`} alt={book.name} />
     </Card>
 );
 

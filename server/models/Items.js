@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    category: {type: String}
+    category: String,
+    description: String,
+    photoPath: String
 });
 
 const Item = mongoose.model('items', itemSchema);
