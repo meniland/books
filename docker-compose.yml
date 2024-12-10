@@ -5,25 +5,31 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      args:
+        - NODE_ENV=${NODE_ENV}
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
     volumes:
       - ./client:/app
       - /app/node_modules
     user: "1000:1000"
     depends_on:
       - server
-#    command: npm start
 
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
+      args:
+        - NODE_ENV=${NODE_ENV}
     ports:
       - "5000:5000"
     volumes:
       - ./server:/app
       - /app/node_modules
     user: "1000:1000"
-    environment:
-      - MONGO_URI=${MONGO_URI}
+#    environment:
+#      - MONGO_URI=${MONGO_URI}
+#      - NODE_ENV=${NODE_ENV}

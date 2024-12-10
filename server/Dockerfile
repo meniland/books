@@ -9,6 +9,13 @@ RUN npm install --save-dev nodemon
 
 COPY . .
 
+# Copy the environment file based on the build context (development or production)
+ARG NODE_ENV
+ENV NODE_ENV=$NODE_ENV
+
+# Use the environment-specific .env.dev file
+COPY .env.${NODE_ENV} .env
+
 RUN chown -R node:node /app
 USER node
 

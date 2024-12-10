@@ -5,7 +5,7 @@ const app = express();
 const dotenv = require('dotenv');
 const PORT = 5000;
 const MONGO_URI = 'mongodb+srv://mlandman:meni8633@cluster0.ws6nf.mongodb.net/books?retryWrites=true&w=majority&appName=Cluster0';
-// const MONGO_URI = process.env.MONGO_URL;
+
 const usersRouter = require('./routes/usersRoutes');
 const itemsRouter = require('./routes/itemsRoutes');
 const authRouter = require('./routes/authRoutes');
