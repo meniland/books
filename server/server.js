@@ -12,6 +12,7 @@ const authRouter = require('./routes/authRoutes');
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('/app/config/uploads'));
 dotenv.config({ path: './config.env' });
 
 mongoose.connect(MONGO_URI)

@@ -9,6 +9,9 @@ RUN npm install --save-dev nodemon
 
 COPY . .
 
+RUN chown -R node:node /app
+USER node
+
 EXPOSE 5000
 
 CMD ["npx", "nodemon", "server.js"]

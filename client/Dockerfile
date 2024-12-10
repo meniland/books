@@ -9,6 +9,10 @@ RUN npm install
 
 COPY . .
 
+# Set user and permissions
+RUN chown -R node:node /app
+USER node
+
 # Expose port 3000
 EXPOSE 3000
 
