@@ -13,7 +13,7 @@ COPY . .
 ARG NODE_ENV
 ENV NODE_ENV=$NODE_ENV
 
-# Use the environment-specific .env.dev file
+# Use the environment-specific .env file
 COPY .env.${NODE_ENV} .env
 
 RUN chown -R node:node /app

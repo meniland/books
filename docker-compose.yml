@@ -8,13 +8,13 @@ services:
       args:
         - NODE_ENV=${NODE_ENV}
     ports:
-      - "3000:3000"
+      - "3000:80"
     environment:
       - NODE_ENV=${NODE_ENV}
     volumes:
       - ./client:/app
       - /app/node_modules
-    user: "1000:1000"
+#    user: "1000:1000"
     depends_on:
       - server
 

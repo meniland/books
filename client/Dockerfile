@@ -1,5 +1,5 @@
 # Use the official Node.js image for building the React app
-FROM node:16 AS build
+FROM node:16 AS buildStage
 
 WORKDIR /app
 
@@ -22,11 +22,11 @@ COPY .env.${NODE_ENV} .env
 # Run the React build for both development and production
 RUN npm run build
 
-# Production Stage: Serve with Nginx (always use Nginx even for local)
-FROM nginx:alpine AS production
+# Always use Nginx even for local
+FROM nginx:alpine AS nginxStage
 
 # Copy the built React app from the build stage to Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=buildStage /app/build /usr/share/nginx/html
 
 # Create and set the correct permissions for the Nginx cache directories
 RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp && \
