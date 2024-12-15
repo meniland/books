@@ -9,8 +9,8 @@ services:
         - NODE_ENV=${NODE_ENV}
     ports:
       - "3000:80"
-    environment:
-      - NODE_ENV=${NODE_ENV}
+    env_file:
+      - ./client/.env.dev
     volumes:
       - ./client:/app
       - /app/node_modules
@@ -29,6 +29,8 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
+    env_file:
+        - ./server/.env.dev
     user: "1000:1000"
 #    environment:
 #      - MONGO_URI=${MONGO_URI}
