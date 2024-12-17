@@ -5,16 +5,16 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      target: ${NODE_ENV:-dev}_stage
       args:
-        - NODE_ENV=${NODE_ENV}
+        - NODE_ENV=${NODE_ENV:-dev}
     ports:
       - "3000:80"
     env_file:
-      - ./client/.env.dev
+      - ./client/.env.${NODE_ENV:-dev}
     volumes:
       - ./client:/app
       - /app/node_modules
-#    user: "1000:1000"
     depends_on:
       - server
 
@@ -23,15 +23,12 @@ services:
       context: ./server
       dockerfile: Dockerfile
       args:
-        - NODE_ENV=${NODE_ENV}
+        - NODE_ENV=${NODE_ENV:-dev}
     ports:
       - "5000:5000"
     volumes:
       - ./server:/app
       - /app/node_modules
     env_file:
-        - ./server/.env.dev
+      - ./server/.env.${NODE_ENV:-dev}
     user: "1000:1000"
-#    environment:
-#      - MONGO_URI=${MONGO_URI}
-#      - NODE_ENV=${NODE_ENV}

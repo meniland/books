@@ -11,7 +11,6 @@ COPY . .
 
 RUN chown -R node:node /app
 USER node
-RUN cp .env.dev .env
 
 EXPOSE 5000
 

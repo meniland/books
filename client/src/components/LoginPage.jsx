@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import {Form, Input, Button, LoginButton, RegisterButton} from '../styles/LoginPageStyles';
+import {Form, Input, LoginButton, RegisterButton} from '../styles/LoginPageStyles';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
