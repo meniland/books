@@ -8,7 +8,7 @@ const BookCard = ({ book }) => (
         <p>{book.description}</p>
         {book.photoPath && (
             <img
-                src={`http://localhost:5000/uploads/${book.photoPath.split('/').pop()}`}
+                src={process.env.REACT_APP_API_DOMAIN + `${book.photoPath.split('/').pop()}`}
                 alt={book.name}
             />
         )}

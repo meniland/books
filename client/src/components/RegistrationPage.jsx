@@ -11,7 +11,7 @@ const RegistrationPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/register', { username, password });
+            const response = await axios.post(process.env.REACT_APP_API_DOMAIN + '/api/v1/register', { username, password });
             document.cookie = `token=${response.data.token}`;
             navigate('/');
         } catch (err) {

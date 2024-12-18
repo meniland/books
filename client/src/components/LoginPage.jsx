@@ -11,7 +11,7 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/login', {
+            const response = await axios.post(process.env.REACT_APP_API_DOMAIN + '/api/v1/login', {
                 'username': username,
                 'password': password
             });
