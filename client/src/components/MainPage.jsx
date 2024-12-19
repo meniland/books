@@ -41,7 +41,7 @@ const MainPage = () => {
                 <option value="Non-Fiction">Non-Fiction</option>
             </Filter>
             <div>
-                {filteredBooks.map(book => (
+                {filteredBooks && filteredBooks.map(book => (
                     <BookCard key={book._id} book={book} />
                 ))}
             </div>
