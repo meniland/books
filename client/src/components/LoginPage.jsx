@@ -29,7 +29,6 @@ const LoginPage = () => {
             <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
             <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             <LoginButton type="submit">Login</LoginButton>
-            <RegisterButton onClick={() => {navigate("/register")}} >Register</RegisterButton>
         </Form>
     );
 }
