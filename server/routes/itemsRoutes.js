@@ -8,4 +8,8 @@ router
     .get(itemController.getItems)
     .post(upload.single('photos'), itemController.uploadItem);
 
+// router
+//     .route('/user-items')
+//     .get(itemController.getUserItems)
+
 module.exports = router;

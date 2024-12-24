@@ -13,14 +13,14 @@ const MyAddsPage = () => {
         }
 
         const fetchMyBooks = async () => {
-            const response = await fetch('/api/mybooks', {
+            const response = await fetch('/api/items/user-items', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
             setMyBooks(data);
         };
 
-        fetchMyBooks();
+        fetchMyBooks().then();
     }, []);
 
     return (
