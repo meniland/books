@@ -1,8 +1,10 @@
 const Item = require("../models/Items");
-const upload = require('../config/multerConfig');
+const AuthUtils = require('../utils/authUtils');
 
 exports.uploadItem = async (req, res) => {
     try {
+        const token = req.headers['authorization']?.split(' ')[1];
+        let userId = AuthUtils.extractUserId(token);
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
@@ -11,13 +13,14 @@ exports.uploadItem = async (req, res) => {
             name: req.body.name,
             category: req.body.category,
             description: req.body.description,
+            userId: userId,
             photoPath: req.file.path // Path to uploaded photo
         });
 
         const savedItem = await newItem.save();
         res.status(201).json(savedItem);
     } catch (error) {
-        console.error('Error uploading item:', error);
+        console.error('Error uploading item: ', error);
         res.status(500).json({ error: 'Failed to upload item' });
     }
 };
