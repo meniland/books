@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Filter } from '../styles/MainPageStyles';
-import BookCard from './BookCard';
+import ItemCard from './ItemCard';
 import axios from 'axios';
 
 const MainPage = () => {
@@ -42,7 +42,7 @@ const MainPage = () => {
             </Filter>
             <div>
                 {filteredBooks && filteredBooks.map(book => (
-                    <BookCard key={book._id} book={book} />
+                    <ItemCard key={book._id} book={book} />
                 ))}
             </div>
         </Container>

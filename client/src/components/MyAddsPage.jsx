@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import BookCard from './BookCard';
-import { Container } from '../styles/MyAddsPageStyles';
+import ItemCard from './ItemCard';
+import  '../styles/userItems.css';
 
 const MyAddsPage = () => {
     const [myBooks, setMyBooks] = useState([]);
@@ -13,7 +13,7 @@ const MyAddsPage = () => {
         }
 
         const fetchMyBooks = async () => {
-            const response = await fetch('/api/items/user-items', {
+            const response = await fetch(process.env.REACT_APP_API_DOMAIN + '/api/v1/items/user-items', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -24,11 +24,11 @@ const MyAddsPage = () => {
     }, []);
 
     return (
-        <Container>
-            {myBooks.map(book => (
-                <BookCard key={book.id} book={book} />
+        <div className='container'>
+            {myBooks && myBooks.map(book => (
+                <ItemCard key={book._id} book={book} />
             ))}
-        </Container>
+        </div>
     );
 }
 

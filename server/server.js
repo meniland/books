@@ -13,7 +13,10 @@ const jwtAuthMiddleware = require("./middlewares/authMiddleware");
 
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('/app/config/uploads'));
+const path = require('path');
+
+// Serve static files for uploads
+app.use('/uploads', express.static(path.join(__dirname, 'config', 'uploads')));
 
 mongoose.connect(MONGO_URI)
    .then(() => console.log('MongoDB connected'))

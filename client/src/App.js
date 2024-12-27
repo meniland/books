@@ -21,7 +21,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/upload" element={getToken() ? <UploadPage /> : <Navigate to="/login" />} />
-                <Route path="/myadds" element={getToken() ? <MyAddsPage /> : <Navigate to="/login" />} />
+                <Route path="/user-items" element={getToken() ? <MyAddsPage /> : <Navigate to="/login" />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegistrationPage />} />
             </Routes>

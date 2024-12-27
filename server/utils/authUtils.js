@@ -11,7 +11,6 @@ const verifyToken = (token) => {
 
 const extractUserId = (token) => {
     const decoded = verifyToken(token);
-    console.log(decoded)
     return decoded.userId;  // Assuming the userId is stored in the JWT payload
 };
 

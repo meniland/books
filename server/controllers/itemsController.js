@@ -34,12 +34,14 @@ exports.getItems = async (req, res) => {
     }
 };
 
-// exports.getUserItems = async (req, res) => {
-//     try {
-//         const items = await Item.find({user_id: });
-//         res.status(200).json(items);
-//     } catch (err) {
-//         res.status(500).json({message: err.message});
-//     }
-// };
+exports.getUserItems = async (req, res) => {
+    try {
+        const token = req.headers['authorization']?.split(' ')[1];
+        let userId = AuthUtils.extractUserId(token);
+        const items = await Item.find({userId: userId});
+        res.status(200).json(items);
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+};
 
