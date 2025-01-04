@@ -8,6 +8,7 @@ const ItemCard = ({ book, fromUserItems, onUpdate }) => {
                 category: book.category,
                 description: book.description,
                 photoPath: book.photoPath,
+                rating: book.rating, // Include rating
         });
 
         const handleInputChange = (e) => {
@@ -25,6 +26,7 @@ const ItemCard = ({ book, fromUserItems, onUpdate }) => {
                 updatedData.append('name', formData.name);
                 updatedData.append('category', formData.category);
                 updatedData.append('description', formData.description);
+                updatedData.append('rating', formData.rating);
                 if (formData.photoPath instanceof File) {
                         updatedData.append('photo', formData.photoPath);
                 }
@@ -38,35 +40,41 @@ const ItemCard = ({ book, fromUserItems, onUpdate }) => {
         };
 
         return (
-            <div className='item-card'>
+            <div className="item-card">
                     {isEditing ? (
-                        <>
+                        <div className="item-card-edit">
                                 <input
-                                    type='text'
-                                    name='name'
+                                    type="text"
+                                    name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    placeholder='Name'
+                                    placeholder="Name"
                                 />
                                 <input
-                                    type='text'
-                                    name='category'
+                                    type="text"
+                                    name="category"
                                     value={formData.category}
                                     onChange={handleInputChange}
-                                    placeholder='Category'
+                                    placeholder="Category"
                                 />
                                 <textarea
-                                    name='description'
+                                    name="description"
                                     value={formData.description}
                                     onChange={handleInputChange}
-                                    placeholder='Description'
+                                    placeholder="Description"
+                                />
+                                <input
+                                    type="number"
+                                    name="rating"
+                                    value={formData.rating}
+                                    onChange={handleInputChange}
+                                    placeholder="Rating (0-5)"
+                                    max="5"
+                                    min="0"
+                                    step="0.1"
                                 />
                                 <div>
-                                        <input
-                                            type='file'
-                                            accept='image/*'
-                                            onChange={handlePhotoChange}
-                                        />
+                                        <input type="file" accept="image/*" onChange={handlePhotoChange} />
                                         {formData.photoPath && !(formData.photoPath instanceof File) && (
                                             <img
                                                 src={process.env.REACT_APP_API_DOMAIN + `/uploads/${formData.photoPath.split('/').pop()}`}
@@ -77,25 +85,29 @@ const ItemCard = ({ book, fromUserItems, onUpdate }) => {
                                 </div>
                                 <button onClick={handleUpdate}>Update</button>
                                 <button onClick={() => setIsEditing(false)}>Cancel</button>
-                        </>
+                        </div>
                     ) : (
-                        <>
-                                <h3>{book.name}</h3>
-                                <p><strong>Category:</strong> {book.category}</p>
-                                <p>{book.description}</p>
-                                <div>
-                                        {book.photoPath && (
-                                            <img
-                                                src={process.env.REACT_APP_API_DOMAIN + `/uploads/${book.photoPath.split('/').pop()}`}
-                                                alt={book.name}
-                                                style={{ maxWidth: '100px', maxHeight: '100px' }}
-                                            />
-                                        )}
+                        <div className="item-card-content">
+                                <img
+                                    className="item-card-image"
+                                    src={process.env.REACT_APP_API_DOMAIN + `/uploads/${book.photoPath.split('/').pop()}`}
+                                    alt={book.name}
+                                />
+                                <div className="item-card-details">
+                                        <h3 className="item-card-name">{book.name}</h3>
+                                        <p className="item-card-category">{book.category}</p>
+                                        <p className="item-card-description">{book.description}</p>
+                                        <div className="item-card-rating">
+                                                <span>1</span>
+                                                <span>⭐</span>
+                                        </div>
                                 </div>
                                 {fromUserItems && (
-                                    <button onClick={() => setIsEditing(true)}>Edit Details</button>
+                                    <button className="item-card-edit-button" onClick={() => setIsEditing(true)}>
+                                            Edit
+                                    </button>
                                 )}
-                        </>
+                        </div>
                     )}
             </div>
         );
